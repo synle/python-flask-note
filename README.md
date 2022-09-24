@@ -301,6 +301,7 @@ foo['number']
 ## Flask specifics
 
 - [werkzeug](https://werkzeug.palletsprojects.com/en/2.2.x/) - is a comprehensive WSGI web application library. It began as a simple collection of various utilities for WSGI applications and has become one of the most advanced WSGI utility libraries.
+- sqlalchemy - for database ORM
 
 ### Flask blueprint
 
@@ -339,6 +340,55 @@ As of Flask 1.1, the return statement will automatically jsonify a dictionary in
 
 ```python
 return data, 200
+```
+
+### flask_apispec usekwargs
+
+- https://stackoverflow.com/questions/65679086/use-kwargs-changes-response-content
+
+```python
+from flask import Flask, make_response
+from flask_apispec import use_kwargs
+from marshmallow import fields
+
+app = Flask(__name__)
+
+@app.route('/')
+@use_kwargs({'email': fields.Str()}, location="query")
+def hello_world(**kwargs):
+    response = make_response("Hello World!")
+    response.content_type = 'text/html'  # can be omitted
+    return response
+```
+
+```bash
+curl -v http://127.0.0.1:5000/\?email\=abc
+```
+
+### flask_apispec marshal_with
+
+- https://morioh.com/p/9f2a38af56fb
+
+```python
+from flask import Flask
+from flask_apispec import use_kwargs, marshal_with
+
+from marshmallow import Schema
+from webargs import fields
+
+from .models import Pet
+
+app = Flask(__name__)
+
+class PetSchema(Schema):
+    class Meta:
+        fields = ('name', 'category', 'size')
+
+@app.route('/pets')
+@use_kwargs({'category': fields.Str(), 'size': fields.Str()})
+@marshal_with(PetSchema(many=True))
+def get_pets(**kwargs):
+    return Pet.query.filter_by(**kwargs)
 ```
 
 ### Global HTTP Error handlers
