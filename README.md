@@ -297,3 +297,69 @@ foo['name']
 foo['number']
 # Output: 12345812
 ```
+
+## Flask specifics
+
+- [werkzeug](https://werkzeug.palletsprojects.com/en/2.2.x/) - is a comprehensive WSGI web application library. It began as a simple collection of various utilities for WSGI applications and has become one of the most advanced WSGI utility libraries.
+
+### Flask blueprint
+
+- https://flask.palletsprojects.com/en/2.2.x/blueprints/
+
+```python
+from flask import Blueprint, render_template, abort
+from jinja2 import TemplateNotFound
+
+simple_page = Blueprint('simple_page', __name__,
+                        template_folder='templates')
+
+@simple_page.route('/', defaults={'page': 'index'})
+@simple_page.route('/<page>')
+def show(page):
+    try:
+        return render_template(f'pages/{page}.html')
+    except TemplateNotFound:
+        abort(404)
+```
+
+### Flask jsonify
+
+- https://stackoverflow.com/questions/45412228/sending-json-and-status-code-with-a-flask-response
+
+```python
+from flask import jsonify
+
+@app.route('/login', methods=['POST'])
+def login():
+    data = {'name': 'nabin khadka'}
+    return jsonify(data)
+```
+
+As of Flask 1.1, the return statement will automatically jsonify a dictionary in the first return value. You can return the data directly:
+
+```python
+return data, 200
+```
+
+### Global HTTP Error handlers
+
+- https://flask.palletsprojects.com/en/2.2.x/errorhandling/
+- https://flask.palletsprojects.com/en/2.2.x/blueprints/
+
+```
+@app.errorhandler(werkzeug.exceptions.BadRequest)
+def handle_bad_request(e):
+    return 'bad request!', 400
+
+# or, without the decorator
+app.register_error_handler(400, handle_bad_request)
+
+## or simpler
+@app.errorhandler(404)
+@app.errorhandler(405)
+def _handle_api_error(ex):
+    if request.path.startswith('/api/'):
+        return jsonify(error=str(ex)), ex.code
+    else:
+        return ex
+```
