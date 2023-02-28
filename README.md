@@ -298,6 +298,91 @@ foo['number']
 # Output: 12345812
 ```
 
+
+### Common Python Syntax
+#### __dict__
+- https://stackoverflow.com/questions/19907442/explain-dict-attribute
+
+```python
+def func():
+    pass
+
+func.temp = 1
+
+print(func.__dict__)
+
+class TempClass:
+    a = 1
+    def temp_function(self):
+        pass
+
+print(TempClass.__dict__)
+```
+
+```
+{'temp': 1}
+{'__module__': '__main__', 
+ 'a': 1, 
+ 'temp_function': <function TempClass.temp_function at 0x10a3a2950>, 
+ '__dict__': <attribute '__dict__' of 'TempClass' objects>, 
+ '__weakref__': <attribute '__weakref__' of 'TempClass' objects>, 
+ '__doc__': None}
+```
+
+#### * or Star or Asterisk
+- https://www.geeksforgeeks.org/python-star-or-asterisk-operator/
+
+Used to make function to accept arguments of variable length.
+
+##### Pass in a list of variable length using `*`
+
+```python
+def addition(*args):
+  return sum(args)
+ 
+print(addition(5, 10, 20, 6))
+```
+
+##### Pass in as a keyed dictionary using `**`
+
+```python
+def food(**kwargs):
+  for items in kwargs:
+    print(f"{kwargs[items]} is a {items}")
+     
+     
+food(fruit = 'cherry', vegetable = 'potato', boy = 'srikrishna')
+```
+
+### Special attributes in a class
+
+#### __setattr__
+- https://python-reference.readthedocs.io/en/latest/docs/dunderattr/setattr.html
+
+```python
+# this example uses __setattr__ to dynamically change attribute value to uppercase
+class Frob:
+...     def __setattr__(self, name, value):
+...         self.__dict__[name] = value.upper()
+...
+f = Frob()
+f.bamf = "bamf"
+f.bamf
+> 'BAMF'
+```
+
+#### __getattr__
+But using the __getattr__ magic method, we can intercept that inexistent attribute lookup and do something so it doesn’t fail:
+- http://www.sefidian.com/2021/06/06/python-__getattr__-and-__getattribute__-magic-methods/
+
+```python
+class Dummy(object):
+    def __getattr__(self, attr):
+        return attr.upper()d = Dummy()
+d.does_not_exist # 'DOES_NOT_EXIST'
+d.what_about_this_one  # 'WHAT_ABOUT_THIS_ONE'
+```
+
 ## Flask specifics
 
 - [werkzeug](https://werkzeug.palletsprojects.com/en/2.2.x/) - is a comprehensive WSGI web application library. It began as a simple collection of various utilities for WSGI applications and has become one of the most advanced WSGI utility libraries.
@@ -396,7 +481,7 @@ def get_pets(**kwargs):
 - https://flask.palletsprojects.com/en/2.2.x/errorhandling/
 - https://flask.palletsprojects.com/en/2.2.x/blueprints/
 
-```
+```python
 @app.errorhandler(werkzeug.exceptions.BadRequest)
 def handle_bad_request(e):
     return 'bad request!', 400
@@ -413,3 +498,4 @@ def _handle_api_error(ex):
     else:
         return ex
 ```
+
