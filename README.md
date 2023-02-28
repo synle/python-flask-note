@@ -383,6 +383,45 @@ d.does_not_exist # 'DOES_NOT_EXIST'
 d.what_about_this_one  # 'WHAT_ABOUT_THIS_ONE'
 ```
 
+### Regex
+- https://www.w3schools.com/python/python_regex.asp
+
+#### Find all matches
+The findall() function returns a list containing all matches.
+
+```python
+import re
+
+txt = "The rain in Spain"
+x = re.findall("ai", txt)
+print(x)
+```
+
+#### Search only returns the first one
+The `search()` function searches the string for a match, and returns a Match object if there is a match.
+If there is more than one match, only the first occurrence of the match will be returned:
+
+```python
+import re
+
+txt = "The rain in Spain"
+x = re.search("\s", txt)
+
+print("The first white-space character is located in position:", x.start())
+```
+
+#### Split
+The split() function returns a list where the string has been split at each match:
+
+```python
+import re
+
+txt = "The rain in Spain"
+x = re.split("\s", txt)
+print(x)
+```
+
+
 ## Flask specifics
 
 - [werkzeug](https://werkzeug.palletsprojects.com/en/2.2.x/) - is a comprehensive WSGI web application library. It began as a simple collection of various utilities for WSGI applications and has become one of the most advanced WSGI utility libraries.
