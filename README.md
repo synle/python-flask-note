@@ -12,6 +12,26 @@ Use this to create an isolated python environment.
 python3 -m venv /path/to/new/virtual/environment
 ```
 
+Activate venv
+```
+source bin/activate
+```
+
+### dependencies
+
+#### Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+#### Freeze 
+
+```bash
+pip freeze > requirements.txt
+```
+
+
 ### Debugging with debugpy
 
 - https://code.visualstudio.com/docs/python/debugging#_debugging-by-attaching-over-a-network-connection
