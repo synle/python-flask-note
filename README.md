@@ -298,9 +298,10 @@ foo['number']
 # Output: 12345812
 ```
 
-
 ### Common Python Syntax
-#### __dict__
+
+#### **dict**
+
 - https://stackoverflow.com/questions/19907442/explain-dict-attribute
 
 ```python
@@ -321,15 +322,16 @@ print(TempClass.__dict__)
 
 ```
 {'temp': 1}
-{'__module__': '__main__', 
- 'a': 1, 
- 'temp_function': <function TempClass.temp_function at 0x10a3a2950>, 
- '__dict__': <attribute '__dict__' of 'TempClass' objects>, 
- '__weakref__': <attribute '__weakref__' of 'TempClass' objects>, 
+{'__module__': '__main__',
+ 'a': 1,
+ 'temp_function': <function TempClass.temp_function at 0x10a3a2950>,
+ '__dict__': <attribute '__dict__' of 'TempClass' objects>,
+ '__weakref__': <attribute '__weakref__' of 'TempClass' objects>,
  '__doc__': None}
 ```
 
-#### * or Star or Asterisk
+#### \* or Star or Asterisk
+
 - https://www.geeksforgeeks.org/python-star-or-asterisk-operator/
 
 Used to make function to accept arguments of variable length.
@@ -339,7 +341,7 @@ Used to make function to accept arguments of variable length.
 ```python
 def addition(*args):
   return sum(args)
- 
+
 print(addition(5, 10, 20, 6))
 ```
 
@@ -349,14 +351,15 @@ print(addition(5, 10, 20, 6))
 def food(**kwargs):
   for items in kwargs:
     print(f"{kwargs[items]} is a {items}")
-     
-     
+
+
 food(fruit = 'cherry', vegetable = 'potato', boy = 'srikrishna')
 ```
 
 ### Special attributes in a class
 
-#### __setattr__
+#### **setattr**
+
 - https://python-reference.readthedocs.io/en/latest/docs/dunderattr/setattr.html
 
 ```python
@@ -371,8 +374,10 @@ f.bamf
 > 'BAMF'
 ```
 
-#### __getattr__
-But using the __getattr__ magic method, we can intercept that inexistent attribute lookup and do something so it doesn’t fail:
+#### **getattr**
+
+But using the **getattr** magic method, we can intercept that inexistent attribute lookup and do something so it doesn’t fail:
+
 - http://www.sefidian.com/2021/06/06/python-__getattr__-and-__getattribute__-magic-methods/
 
 ```python
@@ -384,9 +389,11 @@ d.what_about_this_one  # 'WHAT_ABOUT_THIS_ONE'
 ```
 
 ### Regex
+
 - https://www.w3schools.com/python/python_regex.asp
 
 #### Find all matches
+
 The findall() function returns a list containing all matches.
 
 ```python
@@ -398,6 +405,7 @@ print(x)
 ```
 
 #### Search only returns the first one
+
 The `search()` function searches the string for a match, and returns a Match object if there is a match.
 If there is more than one match, only the first occurrence of the match will be returned:
 
@@ -411,6 +419,7 @@ print("The first white-space character is located in position:", x.start())
 ```
 
 #### Split
+
 The split() function returns a list where the string has been split at each match:
 
 ```python
@@ -420,7 +429,6 @@ txt = "The rain in Spain"
 x = re.split("\s", txt)
 print(x)
 ```
-
 
 ## Flask specifics
 
@@ -537,4 +545,3 @@ def _handle_api_error(ex):
     else:
         return ex
 ```
-
