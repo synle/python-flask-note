@@ -51,7 +51,7 @@ debugpy.breakpoint()
 print('break on this line')
 ```
 
-### GraphQL with Flaks
+### GraphQL with Flask
 
 Use `ariadne`
 
