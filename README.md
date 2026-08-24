@@ -403,7 +403,9 @@ But using the **getattr** magic method, we can intercept that inexistent attribu
 ```python
 class Dummy(object):
     def __getattr__(self, attr):
-        return attr.upper()d = Dummy()
+        return attr.upper()
+
+d = Dummy()
 d.does_not_exist # 'DOES_NOT_EXIST'
 d.what_about_this_one  # 'WHAT_ABOUT_THIS_ONE'
 ```
